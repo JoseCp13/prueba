@@ -6,10 +6,27 @@
 parameters:
 
 services:
-    # default configuration for services in *this* file
+    # Default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    doctrine.orm.entity_manager:
+        class: Doctrine\ORM\EntityManagerInterface
+        factory: ['@doctrine', 'getManager']
+
+    App\Command\CreateCampaignCommand:
+        tags:
+            - { name: 'console.command', command: 'app:create-campaign' }
+
+    App\Command\ListCampaignCommand:
+        tags:
+            - { name: 'console.command' , command: 'app:list-campaign'}
+             
+    App\Command\InfluencerCampaignCommand:
+        tags:
+            - { name: 'console.command' , command: 'app:influencers-campaign'}
+
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
